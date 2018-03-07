@@ -1,0 +1,78 @@
+<div class="container top30">
+
+  <div class="row">
+    <div class="col-md-3">
+      <img [src]="artista.images | sinfoto" class="img-fluid img-thumbnail img-circular">
+    </div>
+    <div class="col-md-9">
+      <h1>{{ artista.name }}</h1>
+      <hr>
+      <button (click) = "abrirEnSpotify(artista.external_urls.spotify)"
+        type="button" class="btn btn-outline-success">Abrir en Spotify</button>
+      <button [routerLink]="['/search']"
+        type="button" class="btn btn-outline-danger">Volver</button>
+    </div>
+  </div>
+  
+
+  <!-- <div class="row top30">
+    <div class="col-md-3">
+        <h3>Top 10 tracks</h3>
+        <hr>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-md-4"
+          *ngFor="let track of tracks">
+
+        <img [src]="track.album.images | sinfoto"
+            class="img-thumbnail">
+        <p class="tezt-center">{{ track.name }}</p>
+
+    </div>
+    
+  </div> -->
+
+
+  <div class="row top30">
+
+    <div class="col-md-12">
+      <table class="table table-dark">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Foto</th>
+              <th>Nombre</th>
+              <th>Album</th>
+              <th>Popularidad</th>
+              <th>Escuchar</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let track of tracks; let indice = index">
+              <td>{{ indice + 1 }}</td>
+              <td><img [src]="track.album.images | sinfoto" class="img-50"></td>
+              <td>{{ track.name }}</td>
+              <td><a class="badge badge-light" [href]="track.album.external_urls.spotify" target="_blank">{{ track.album.name }}</a></td>
+              <td>{{ track.popularity }}%</td>
+              <td>
+                <!-- <audio controls preload="auto">
+                    <source [src]="track.preview_url" type="audio/mpeg" />
+                    Tag audio no soportado por navegador.
+                </audio> -->
+                <iframe [src]="track.uri | domseguro:'https://open.spotify.com/embed?uri='" 
+                        width="300" height="80" frameborder="0" allowtransparency="true" 
+                        allow="encrypted-media"></iframe>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+    </div>
+
+  </div>
+
+  
+</div>
